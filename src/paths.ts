@@ -9,6 +9,9 @@ export const JOBS_DIR = `${APP_DIR}/jobs`;
 export const STATE_DIR = `${APP_DIR}/state`;
 export const WRAPPER_PATH = `${APP_DIR}/wrapper.sh`;
 export const SYSTEMD_USER_DIR = `${HOME}/.config/systemd/user`;
+// systemd writes a Persistent=true timer's "last triggered" bookkeeping here;
+// it never cleans this up itself when a unit is removed, so we must.
+export const TIMER_STAMPS_DIR = `${HOME}/.local/share/systemd/timers`;
 
 export const serviceUnitName = (slug: string) => `timerctl-${slug}.service`;
 export const timerUnitName = (slug: string) => `timerctl-${slug}.timer`;
@@ -16,6 +19,8 @@ export const serviceUnitPath = (slug: string) =>
   `${SYSTEMD_USER_DIR}/${serviceUnitName(slug)}`;
 export const timerUnitPath = (slug: string) =>
   `${SYSTEMD_USER_DIR}/${timerUnitName(slug)}`;
+export const timerStampPath = (slug: string) =>
+  `${TIMER_STAMPS_DIR}/stamp-${timerUnitName(slug)}`;
 export const jobJsonPath = (slug: string) => `${JOBS_DIR}/${slug}.json`;
 export const scriptPath = (slug: string) => `${SCRIPTS_DIR}/${slug}.sh`;
 export const stateDir = (slug: string) => `${STATE_DIR}/${slug}`;

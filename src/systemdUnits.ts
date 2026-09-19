@@ -1,6 +1,7 @@
 import {
   serviceUnitName,
   serviceUnitPath,
+  timerStampPath,
   timerUnitName,
   timerUnitPath,
 } from "./paths.ts";
@@ -45,7 +46,7 @@ export async function writeUnitFiles(job: Job): Promise<void> {
 }
 
 export async function removeUnitFiles(slug: string): Promise<void> {
-  for (const p of [serviceUnitPath(slug), timerUnitPath(slug)]) {
+  for (const p of [serviceUnitPath(slug), timerUnitPath(slug), timerStampPath(slug)]) {
     await Deno.remove(p).catch(() => {});
   }
 }
