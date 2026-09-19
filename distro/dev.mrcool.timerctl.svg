@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#62a0ea"/>
+      <stop offset="1" stop-color="#1a5fb4"/>
+    </linearGradient>
+    <linearGradient id="loop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#57e389"/>
+      <stop offset="1" stop-color="#26a269"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="url(#bg)"/>
+
+  <!-- clock stem/button -->
+  <rect x="118" y="30" width="20" height="16" rx="6" fill="#e3e8ef"/>
+
+  <!-- clock face -->
+  <circle cx="122" cy="132" r="72" fill="#f6f8fb"/>
+  <circle cx="122" cy="132" r="72" fill="none" stroke="#d7dee7" stroke-width="4"/>
+
+  <!-- clock hands: pointing roughly 10:10 -->
+  <line x1="122" y1="132" x2="122" y2="84" stroke="#1a5fb4" stroke-width="9" stroke-linecap="round"/>
+  <line x1="122" y1="132" x2="156" y2="150" stroke="#1a5fb4" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="122" cy="132" r="7" fill="#1a5fb4"/>
+
+  <!-- recurring/schedule badge, bottom-right -->
+  <circle cx="188" cy="196" r="40" fill="url(#loop)" stroke="#0f3320" stroke-width="0" />
+  <circle cx="188" cy="196" r="40" fill="none" stroke="#134a2c" stroke-width="0"/>
+  <path d="M172 182 a20 20 0 1 1 -4 26" fill="none" stroke="#f6f8fb" stroke-width="7" stroke-linecap="round"/>
+  <path d="M172 182 l-2 -12 l12 4 z" fill="#f6f8fb"/>
+</svg>

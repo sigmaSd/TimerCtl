@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=timerctl
+GenericName=Timer Manager
+Comment=Manage systemd --user timers from a GUI
+Exec=deno run --allow-ffi --allow-run=systemctl,systemd-analyze --allow-read --allow-write --allow-env /home/mrcool/dev/cron/main.ts
+Path=/home/mrcool/dev/cron
+Icon=/home/mrcool/dev/cron/distro/dev.mrcool.timerctl.svg
+Terminal=false
+Categories=Utility;
+StartupWMClass=dev.mrcool.timerctl
+Keywords=systemd;timer;cron;scheduler;
