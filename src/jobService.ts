@@ -106,6 +106,16 @@ export async function runJobNow(slug: string): Promise<void> {
   await startUnit(serviceUnitName(slug));
 }
 
+// Pauses/resumes a job's timer without touching its script/config/history.
+// Re-enabling re-arms OnActiveSec=1min, so it fires again shortly after resume.
+export async function setJobEnabled(slug: string, enabled: boolean): Promise<void> {
+  if (enabled) {
+    await enableNow(timerUnitName(slug));
+  } else {
+    await disableNow(timerUnitName(slug));
+  }
+}
+
 export interface JobStatus extends Job {
   active: string;
   enabled: string;

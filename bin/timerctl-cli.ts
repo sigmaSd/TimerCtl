@@ -88,8 +88,28 @@ async function main() {
       console.log("Deleted:", slug);
       break;
     }
+    case "enable": {
+      const slug = rest[0];
+      if (!slug) {
+        console.error("Usage: enable <slug>");
+        Deno.exit(1);
+      }
+      await jobService.setJobEnabled(slug, true);
+      console.log("Enabled:", slug);
+      break;
+    }
+    case "disable": {
+      const slug = rest[0];
+      if (!slug) {
+        console.error("Usage: disable <slug>");
+        Deno.exit(1);
+      }
+      await jobService.setJobEnabled(slug, false);
+      console.log("Disabled:", slug);
+      break;
+    }
     default:
-      console.error("Usage: timerctl-cli.ts <create|list|run|log|delete> ...");
+      console.error("Usage: timerctl-cli.ts <create|list|run|log|delete|enable|disable> ...");
       Deno.exit(1);
   }
 }

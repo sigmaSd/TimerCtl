@@ -1,6 +1,6 @@
-import { Application, Button, ListBox, ScrolledWindow, SelectionMode, Window } from "@sigmasd/gtk/gtk4";
+import { Align, Application, Button, ListBox, ScrolledWindow, SelectionMode, Switch, Window } from "@sigmasd/gtk/gtk4";
 import { ActionRow, AdwApplicationWindow, HeaderBar, ToolbarView } from "@sigmasd/gtk/adw";
-import { type JobStatus, listJobsWithStatus, runJobNow } from "../jobService.ts";
+import { type JobStatus, listJobsWithStatus, runJobNow, setJobEnabled } from "../jobService.ts";
 import { openJobDialog } from "./jobDialog.ts";
 import { openLogView } from "./logView.ts";
 import { confirmDeleteAndRun } from "./confirmDialog.ts";
@@ -56,6 +56,20 @@ export function buildMainWindow(app: Application): { win: Window; rebuildJobList
       row.setTitle(job.name);
       row.setSubtitle(formatSubtitle(job));
 
+      // Set the initial state before wiring onActivate — Switch fires
+      // notify::active on this initial setActive() call too if it changes
+      // the value, and we don't want that to re-enter rebuildJobList()
+      // while it's still in the middle of building this very row.
+      const enabledSwitch = new Switch();
+      enabledSwitch.setValign(Align.CENTER);
+      enabledSwitch.setTooltipText("Enable/disable this job's timer");
+      enabledSwitch.setActive(job.enabled === "enabled");
+      enabledSwitch.onActivate(async () => {
+        enabledSwitch.setSensitive(false);
+        await setJobEnabled(job.slug, enabledSwitch.getActive());
+        await rebuildJobList();
+      });
+
       const runBtn = new Button();
       runBtn.setIconName("media-playback-start-symbolic");
       runBtn.setTooltipText("Run now");
@@ -90,7 +104,7 @@ export function buildMainWindow(app: Application): { win: Window; rebuildJobList
         });
       });
 
-      for (const b of [runBtn, logBtn, editBtn, delBtn]) row.addSuffix(b);
+      for (const b of [enabledSwitch, runBtn, logBtn, editBtn, delBtn]) row.addSuffix(b);
       listBox.append(row);
     }
   }
