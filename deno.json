@@ -1,0 +1,11 @@
+{
+  "imports": {
+    "@sigmasd/gtk/gtk4": "jsr:@sigmasd/gtk@^0.67.0/gtk4",
+    "@sigmasd/gtk/adw": "jsr:@sigmasd/gtk@^0.67.0/adw",
+    "@sigmasd/gtk/eventloop": "jsr:@sigmasd/gtk@^0.67.0/eventloop"
+  },
+  "tasks": {
+    "dev": "deno run --allow-ffi --allow-run=systemctl,systemd-analyze --allow-read --allow-write --allow-env main.ts",
+    "cli": "deno run --allow-run=systemctl,systemd-analyze --allow-read --allow-write --allow-env bin/timerctl-cli.ts"
+  }
+}
